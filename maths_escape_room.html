@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mathematics Escape Room — Prototype</title>
+  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  <style>body{margin:0} .tip{position:fixed;top:8px;left:8px;z-index:9;color:white;background:#172032cc;padding:10px;border-radius:8px;font:13px sans-serif;max-width:360px;pointer-events:none}</style>
+</head>
+<body>
+<div class="tip">Desktop: use WASD to move, mouse to look, aim centre cursor and click. Quest 2: open in Quest Browser, choose Enter VR, point and trigger with a controller. Solve all three stations to open the exit.</div>
+<a-scene background="color:#101b2b" renderer="antialias:true" vr-mode-ui="enabled:true">
+  <a-assets></a-assets>
+  <a-entity light="type:ambient;color:#FFF;intensity:.75"></a-entity>
+  <a-entity light="type:directional;intensity:.65" position="0 5 2"></a-entity>
+  <a-plane position="0 0 -3" rotation="-90 0 0" width="12" height="12" color="#546579"></a-plane>
+  <a-plane position="0 4 -3" rotation="90 0 0" width="12" height="12" color="#26364a"></a-plane>
+  <a-box position="0 2 -9" width="12" height="4" depth=".15" color="#314359"></a-box>
+  <a-box position="-6 2 -3" width=".15" height="4" depth="12" color="#314359"></a-box>
+  <a-box position="6 2 -3" width=".15" height="4" depth="12" color="#314359"></a-box>
+  <a-box position="0 2 3" width="12" height="4" depth=".15" color="#314359"></a-box>
+  <a-text value="THE MATHEMATICS ESCAPE ROOM" align="center" position="0 3.4 -8.86" width="8" color="#fff"></a-text>
+  <a-text id="status" value="Locks opened: 0 / 3" align="center" position="0 2.95 -8.85" width="5" color="#ffd66d"></a-text>
+
+  <!-- Each puzzle is a simple wall-mounted panel with raycastable answer buttons. -->
+  <a-entity id="panel0" position="-3.6 1.8 -8.75">
+    <a-plane width="3.1" height="2.15" color="#1a293b"></a-plane>
+    <a-text value="STATION 1: ALGEBRA" align="center" position="0 .78 .02" width="3.6" color="#89d8ff"></a-text>
+    <a-text value="3x + 5 = 20. Find x." align="center" position="0 .35 .02" width="3.1" color="#ffffff"></a-text>
+    <a-text id="feedback0" value="Choose an answer" align="center" position="0 -.79 .02" width="2.8" color="#e9f1ff"></a-text>
+    <a-entity class="choice" data-puzzle="0" data-answer="3" position="-.92 -.25 .04"><a-plane width=".8" height=".5" color="#436b89"></a-plane><a-text value="3" align="center" position="0 0 .015" width="3" color="#fff"></a-text></a-entity>
+    <a-entity class="choice" data-puzzle="0" data-answer="5" position="0 -.25 .04"><a-plane width=".8" height=".5" color="#436b89"></a-plane><a-text value="5" align="center" position="0 0 .015" width="3" color="#fff"></a-text></a-entity>
+    <a-entity class="choice" data-puzzle="0" data-answer="7" position=".92 -.25 .04"><a-plane width=".8" height=".5" color="#436b89"></a-plane><a-text value="7" align="center" position="0 0 .015" width="3" color="#fff"></a-text></a-entity>
+  </a-entity>
+  <a-entity id="panel1" position="0 1.8 -8.75">
+    <a-plane width="3.1" height="2.15" color="#1a293b"></a-plane>
+    <a-text value="STATION 2: VECTORS" align="center" position="0 .78 .02" width="3.6" color="#89d8ff"></a-text>
+    <a-text value="Magnitude of 3i + 4j?" align="center" position="0 .35 .02" width="3.1" color="#ffffff"></a-text>
+    <a-text id="feedback1" value="Choose an answer" align="center" position="0 -.79 .02" width="2.8" color="#e9f1ff"></a-text>
+    <a-entity class="choice" data-puzzle="1" data-answer="4" position="-.92 -.25 .04"><a-plane width=".8" height=".5" color="#436b89"></a-plane><a-text value="4" align="center" position="0 0 .015" width="3" color="#fff"></a-text></a-entity>
+    <a-entity class="choice" data-puzzle="1" data-answer="5" position="0 -.25 .04"><a-plane width=".8" height=".5" color="#436b89"></a-plane><a-text value="5" align="center" position="0 0 .015" width="3" color="#fff"></a-text></a-entity>
+    <a-entity class="choice" data-puzzle="1" data-answer="7" position=".92 -.25 .04"><a-plane width=".8" height=".5" color="#436b89"></a-plane><a-text value="7" align="center" position="0 0 .015" width="3" color="#fff"></a-text></a-entity>
+  </a-entity>
+  <a-entity id="panel2" position="3.6 1.8 -8.75">
+    <a-plane width="3.1" height="2.15" color="#1a293b"></a-plane>
+    <a-text value="STATION 3: GEOMETRY" align="center" position="0 .78 .02" width="3.6" color="#89d8ff"></a-text>
+    <a-text value="Rotate (2, 1) 90 deg ACW." align="center" position="0 .35 .02" width="3.4" color="#ffffff"></a-text>
+    <a-text id="feedback2" value="Choose an answer" align="center" position="0 -.79 .02" width="2.8" color="#e9f1ff"></a-text>
+    <a-entity class="choice" data-puzzle="2" data-answer="(-1,2)" position="-.92 -.25 .04"><a-plane width=".88" height=".5" color="#436b89"></a-plane><a-text value="(-1,2)" align="center" position="0 0 .015" width="2.25" color="#fff"></a-text></a-entity>
+    <a-entity class="choice" data-puzzle="2" data-answer="(1,-2)" position="0 -.25 .04"><a-plane width=".88" height=".5" color="#436b89"></a-plane><a-text value="(1,-2)" align="center" position="0 0 .015" width="2.25" color="#fff"></a-text></a-entity>
+    <a-entity class="choice" data-puzzle="2" data-answer="(2,-1)" position=".92 -.25 .04"><a-plane width=".88" height=".5" color="#436b89"></a-plane><a-text value="(2,-1)" align="center" position="0 0 .015" width="2.25" color="#fff"></a-text></a-entity>
+  </a-entity>
+  <a-entity position="0 1.7 2.88" rotation="0 180 0">
+    <a-box id="exitdoor" position="0 -.2 .04" width="2.2" height="3.3" depth=".14" color="#a73c43"></a-box>
+    <a-text id="exitlabel" value="EXIT LOCKED" align="center" position="0 .3 .15" width="3.8" color="#fff"></a-text>
+  </a-entity>
+  <a-entity id="player" position="0 0 0">
+    <a-entity id="head" camera look-controls wasd-controls="acceleration:25" position="0 1.6 0">
+      <a-cursor fuse="false" raycaster="objects:.choice" color="#ffec8b"></a-cursor>
+    </a-entity>
+    <a-entity laser-controls="hand:left" raycaster="objects:.choice;far:15" line="color:#8dd3ff"></a-entity>
+    <a-entity laser-controls="hand:right" raycaster="objects:.choice;far:15" line="color:#8dd3ff"></a-entity>
+  </a-entity>
+  <a-text value="Use controller trigger on an answer. Exit is behind you." position="-2.6 2.1 -4" width="5" color="#fff"></a-text>
+</a-scene>
+<script>
+(function(){
+  const correct=['5','5','(-1,2)'];
+  const solved=[false,false,false];
+  document.querySelectorAll('.choice').forEach(function(choice){
+    choice.addEventListener('click',function(){
+      const n=Number(choice.getAttribute('data-puzzle'));
+      if(solved[n]) return;
+      const ans=choice.getAttribute('data-answer');
+      const feedback=document.querySelector('#feedback'+n);
+      if(ans===correct[n]){
+        solved[n]=true;
+        feedback.setAttribute('value','CORRECT - LOCK OPEN');
+        feedback.setAttribute('color','#74ffad');
+        document.querySelector('#panel'+n).querySelector('a-plane').setAttribute('color','#214d43');
+        const total=solved.filter(Boolean).length;
+        document.querySelector('#status').setAttribute('value','Locks opened: '+total+' / 3');
+        if(total===3){
+          document.querySelector('#exitdoor').setAttribute('visible',false);
+          document.querySelector('#exitlabel').setAttribute('value','YOU ESCAPED!');
+          document.querySelector('#exitlabel').setAttribute('color','#74ffad');
+        }
+      }else{
+        feedback.setAttribute('value','Not quite. Try again.');
+        feedback.setAttribute('color','#ff9d98');
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
